@@ -2,38 +2,38 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from apps.ventas import models as modelo
 
-class PersonaForms(forms.ModelForm):
-    class Meta:
-        model = modelo.Vendedor
-        fields = [
-            'nombre',
-            'apellido',
-            'edad',
-            'telefono',
-            'email',
-            'domicilio',
-        ]
-        labels = {
-            'nombre': 'Nombre',
-            'apellido': 'Apellido',
-            'edad': 'Edad',
-            'Telefono': 'Telefono',
-            'email': 'Email',
-            'domicilio': 'Domicilio',
-        }
-        widgets = {
-            'nombre': forms.TextInput(attrs={"class":"form-control"}),
-            'apellido': forms.TextInput(attrs={'class':'form-control'}),
-            'edad': forms.TextInput(attrs={'class':'form-control'}),
-            'telefono': forms.TextInput(attrs={'class':'form-control'}),
-            'email': forms.TextInput(attrs={'class':'form-control'}),
-            'domicilio': forms.TextInput(attrs={'class':'form-control'}),
-        }
+
     
 class CrearUsuario(forms.ModelForm):
     password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
-    password1 = forms.CharField(label='Confirmar Contraseña', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Confirmar Contraseña', widget=forms.PasswordInput)
 
     class Meta:
         model = modelo.Vendedor
-        fields = ('nombre','apellido_paterno','apellido_materno','fecha_nacimiento','usuario','password')
+        fields = ('nombre','apellido_paterno','apellido_materno','fecha_nacimiento','correo','password')
+
+    def clean_password(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1 and password2 and password1!=password2:
+            raise forms.ValidationError("Contraseñas no coinciden")
+        return password2
+    
+    def save(self, commit=True):
+        usuario = super(CrearUsuario, self).save(commit=False)
+        usuario.set_password(self.cleaned_data["password1"])
+        
+        if commit:
+            
+            usuario.save()
+        return usuario
+
+class ModificarUsuario(forms.ModelForm):
+    password = ReadOnlyPasswordHashField()
+
+    class Meta:
+        model = modelo.Vendedor
+        fields = ('nombre','apellido_paterno','apellido_materno','fecha_nacimiento','correo','password','active','admin')
+    
+    def clean_password(self):
+        return self.initial['password']
