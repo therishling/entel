@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractUser
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 # Create your models here.
 
 class ManejadorUsuario(BaseUserManager):
@@ -28,13 +28,13 @@ class ManejadorUsuario(BaseUserManager):
 
 
 
-class Vendedor(AbstractUser):
+class Vendedor(AbstractBaseUser):
     nombre = models.CharField(max_length=200)
     apellido_paterno = models.CharField(max_length=80)
     apellido_materno = models.CharField(max_length=80)
     fecha_nacimiento = models.DateField(null = True)
     correo = models.EmailField(verbose_name='correo',max_length=100, unique=True)
-
+    is_vendedor = models.BooleanField(default = True)
     active = models.BooleanField(default = True)
     staff = models.BooleanField(default = False)
     admin = models.BooleanField(default = False)
@@ -80,8 +80,10 @@ class Venta(models.Model):
 class Producto(models.Model):
     nombre_producto = models.CharField(max_length=100)
     stock = models.IntegerField()
+    precio = models.IntegerField()
 
 class ProductoVenta(models.Model):
     venta = models.ForeignKey(Venta, null=True, blank=True, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, null=True, blank=True, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
+    total = models.IntegerField()

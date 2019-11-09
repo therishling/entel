@@ -11,11 +11,11 @@ class UserAdmin(BaseUserAdmin):
     
     list_display = ('correo', 'admin')
     list_filter = ('admin',)
-    fieldsets = ((None, {'fields': ('correo', 'password', )}),('Informacion Personal',{'fields': ('nombre','apellido_paterno','apellido_materno','fecha_nacimiento')}),('Permisos',{'fields': ('admin','staff','active')}),)
+    fieldsets = ((None, {'fields': ('correo', 'password', )}),('Informacion Personal',{'fields': ('nombre','apellido_paterno','apellido_materno','fecha_nacimiento')}),('Permisos',{'fields': ('admin','staff','active','is_vendedor')}),)
 
     add_fieldsets = ((None, {
         'classes':('wide',),
-        'fields': ('username','correo','password1','password2')
+        'fields': ('correo','is_vendedor','password1','password2')
     }),)
 
     search_fields = ('correo',)

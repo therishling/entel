@@ -10,9 +10,9 @@ class CrearUsuario(forms.ModelForm):
 
     class Meta:
         model = modelo.Vendedor
-        fields = ('nombre','apellido_paterno','apellido_materno','fecha_nacimiento','correo','password')
+        fields = ('nombre','apellido_paterno','apellido_materno','fecha_nacimiento','correo','password1')
 
-    def clean_password(self):
+    def clean_password2(self):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
         if password1 and password2 and password1!=password2:
@@ -33,7 +33,7 @@ class ModificarUsuario(forms.ModelForm):
 
     class Meta:
         model = modelo.Vendedor
-        fields = ('nombre','apellido_paterno','apellido_materno','fecha_nacimiento','correo','password','active','admin')
+        fields = ('nombre','apellido_paterno','apellido_materno','fecha_nacimiento','correo','password','active','admin','is_vendedor')
     
     def clean_password(self):
         return self.initial['password']
