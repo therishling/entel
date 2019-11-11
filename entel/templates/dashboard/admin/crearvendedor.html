@@ -9,63 +9,101 @@
 {%block contenido%}
 {% if messages %}
 
-    {% for message in messages %}
-    <div class="alert alert-success" role="alert">
-        {{ message }}
-    </div>
+{% for message in messages %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
 
-    {% endfor %}
+{% endfor %}
 
 {% endif %}
 
 {% if form.errors %}
-    {% for field in form %}
-        {% if field.errors %}
-            {% for error in field.errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error|escape }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endfor %}
+{% for field in form %}
+{% if field.errors %}
+{% for error in field.errors %}
+<div class="alert alert-danger" role="alert">
+    {{ error|escape }}
+</div>
+{% endfor %}
 {% endif %}
-<div class="col-md-4">
+{% endfor %}
+{% endif %}
+
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" name="nombre" required placeholder="Nombre">
-
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
+            </div>
         </div>
         <div class="form-group">
             <label for="apellido_paterno">Apellido Paterno</label>
-            <input type="text" class="form-control" name="apellido_paterno" required placeholder="Apellido Paterno">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" name="apellido_paterno" placeholder="Apellido Paterno" required>
+            </div>
         </div>
+
         <div class="form-group">
-            <label for="apellido_paterno">Apellido Materno</label>
-            <input type="text" class="form-control" name="apellido_materno" required placeholder="Apellido Materno">
+            <label for="apellido_materno">Apellido Materno</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" name="apellido_materno" placeholder="Apellido Materno" required>
+            </div>
         </div>
+
         <div class="form-group">
-            <label for="apellido_paterno">Fecha Nacimiento</label>
-            <input type="text" class="form-control" required name="fecha_nacimiento">
-            <small id="emailHelp" class="form-text text-muted">Formato YYYY-MM-DD.</small>
-        </div>
-        <div class="form-group">
-            <label for="apellido_paterno">Correo</label>
-            <input type="email" class="form-control" name="correo" required placeholder="Correo@entel.cl">
-        </div>
-        <div class="form-group">
-            <label for="apellido_paterno">Contraseña</label>
-            <input type="password" class="form-control" required name="password1" id="password1">
-        </div>
-        <div class="form-group">
-            <label for="apellido_paterno">Confirmar Contraseña</label>
-            <input type="password" class="form-control" required name="password2" id="password2">
-        </div>
+                <label for="fecha_nacimiento">Fecha Nacimiento</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                    </div>
+                    <input type="date" class="form-control" name="fecha_nacimiento" placeholder="" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                    <label for="correo">Correo</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        </div>
+                        <input type="email" class="form-control" name="correo" placeholder="Correo" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                        <label for="password1">Contraseña</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            </div>
+                            <input type="password" class="form-control" name="password1" id="password1" placeholder="Contraseña" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            <label for="password2">Confirmar Contraseña</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                </div>
+                                <input type="password" class="form-control" name="password2" id="password2" placeholder="Confirmar Contraseña" required>
+                            </div>
+                        </div>
+
 
         <button type="submit" class="btn btn-primary">Crear Usuario</button>
     </form>
-</div>
+
 
 {%endblock%}
 

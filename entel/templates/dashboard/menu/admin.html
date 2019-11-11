@@ -1,12 +1,3 @@
-<li class="nav-item">
-    <a class="nav-link " href="{% url 'dashboard' %}">
-        <span data-feather="home"></span>
-        Inicio
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link " href="{% url 'crear usuario' %}">
-        <span data-feather="user-plus"></span>
-        Crear Vendedor
-    </a>
-</li>
+{%load menu%}
+<a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action {% active 'dashboard' %}"><i class="fas fa-home"></i><span> Inicio</span></a>
+<a href="{% url 'crear usuario' %}" class="list-group-item list-group-item-action {% active 'crear usuario' %}"><i class="fas fa-user-plus"></i><span> Crear Vendedor</span></a>
