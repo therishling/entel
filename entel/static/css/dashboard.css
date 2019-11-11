@@ -90,3 +90,13 @@
 .contenido-estilo{
   padding-top: 20px;
 }
+
+.table .thead-entel th {
+  background-color: #005cff; 
+  color: #fff;
+  border-color: #005cff ;
+}
+
+.formsentel i{
+  color: #005cff; 
+}

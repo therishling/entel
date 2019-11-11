@@ -1,0 +1,98 @@
+{% extends 'base/base.html' %}
+<!-- Titulo de la pagina -->
+{%block title%} Lista Vendedor {%endblock%}
+
+
+<!-- Contenido -->
+{%block titulo_seccion%} Lista Vendedor {%endblock%}
+
+{%block contenido%}
+
+<table class="table">
+  <thead class="thead-entel">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellido Paterno</th>
+      <th scope="col">Apellido Materno</th>
+      <th scope="col">Fecha Nacimiento</th>
+      <th scope="col">Correo</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%if object_list %}
+    {% for users in usuarios %}
+    <tr>
+      <th scope="row">{{users.id}}</th>
+      <td>{{users.nombre}}</td>
+      <td>{{users.apellido_paterno}}</td>
+      <td>{{users.apellido_materno}}</td>
+      <td>{{users.fecha_nacimiento}}</td>
+      <td>{{users.correo}}</td>
+      <td>
+        <a class="btn btn-primary" href="{% url 'modificar usuario' users.id %}"><i class="fas fa-edit"></i></a>
+        
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal{{users.id}}">
+            <i class="fas fa-trash"></i>
+        </button>
+
+        <div class="modal fade" id="myModal{{users.id}}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Eliminar: {{users.nombre}} {{users.apellido_paterno}}</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+          {% if user.id == users.id %}
+          <div class="modal-body">
+              No puedes eliminar el usuario actual.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+            {% else %}
+                <!-- Modal body -->
+                <div class="modal-body">
+                  Estas seguro que deseas eliminar el usuario: {{users.correo}}
+                </div>
+          
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                  <form action="{% url 'eliminar usuario' users.id %}"  method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-primary" >Eliminar</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                  </form>
+                  
+                </div>
+          {% endif %}
+              </div>
+            </div>
+          </div>
+          
+      </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <h1>No existen registros</h1>
+    {% endif %}
+  </tbody>
+</table>
+
+
+
+<!-- The Modal -->
+
+
+
+
+{%endblock%}
+
+{%block scripts%}
+
+
+
+{%endblock%}

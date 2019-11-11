@@ -33,7 +33,9 @@ class ModificarUsuario(forms.ModelForm):
 
     class Meta:
         model = modelo.Vendedor
-        fields = ('nombre','apellido_paterno','apellido_materno','fecha_nacimiento','correo','password','active','admin','is_vendedor')
+        fields = ('nombre','apellido_paterno','apellido_materno','fecha_nacimiento','correo','password',)
+        
     
     def clean_password(self):
         return self.initial['password']
+

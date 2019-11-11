@@ -1,10 +1,27 @@
 {% extends 'base/base.html' %}
 <!-- Titulo de la pagina -->
-{%block title%} Crear Vendedor {%endblock%}
+
+{%block title%} 
+{%if usuario %}
+Modificar Vendedor
+{%else%}
+Crear Vendedor
+{%endif%}
+{%endblock%}
+
+
 
 
 <!-- Contenido -->
-{%block titulo_seccion%} Crear Vendedor {%endblock%}
+{%block titulo_seccion%} 
+
+{%if usuario %}
+Modificar Vendedor
+{%else%}
+Crear Vendedor
+{%endif%}
+
+{%endblock%}
 
 {%block contenido%}
 {% if messages %}
@@ -29,7 +46,7 @@
 {% endif %}
 {% endfor %}
 {% endif %}
-
+<div class="col-md-6 mx-auto formsentel">
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
@@ -38,7 +55,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
-                <input type="text" class="form-control" name="nombre" placeholder="Nombre" required>
+                <input type="text" class="form-control" name="nombre" placeholder="Nombre" required value="{{usuario.nombre}}">
             </div>
         </div>
         <div class="form-group">
@@ -47,7 +64,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
-                <input type="text" class="form-control" name="apellido_paterno" placeholder="Apellido Paterno" required>
+                <input type="text" class="form-control" name="apellido_paterno" value="{{usuario.apellido_paterno}}" placeholder="Apellido Paterno" required>
             </div>
         </div>
 
@@ -57,7 +74,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
-                <input type="text" class="form-control" name="apellido_materno" placeholder="Apellido Materno" required>
+                <input type="text" class="form-control" name="apellido_materno" value="{{usuario.apellido_materno}}" placeholder="Apellido Materno" required>
             </div>
         </div>
 
@@ -67,7 +84,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                     </div>
-                    <input type="date" class="form-control" name="fecha_nacimiento" placeholder="" required>
+                    <input type="date" class="form-control" name="fecha_nacimiento" value="{{usuario.fecha_nacimiento}}" placeholder="" required>
                 </div>
             </div>
 
@@ -77,7 +94,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                         </div>
-                        <input type="email" class="form-control" name="correo" placeholder="Correo" required>
+                        <input type="email" class="form-control" name="correo" placeholder="Correo" value="{{usuario.correo}}" required>
                     </div>
                 </div>
 
@@ -101,9 +118,18 @@
                         </div>
 
 
-        <button type="submit" class="btn btn-primary">Crear Usuario</button>
-    </form>
+        <button type="submit" class="btn btn-primary">
+            
+            
+            {%if usuario %}
+            Modificar Usuario
+            {%else%}
+            Crear Usuario
+            {%endif%}
 
+        </button>
+    </form>
+</div>
 
 {%endblock%}
 
