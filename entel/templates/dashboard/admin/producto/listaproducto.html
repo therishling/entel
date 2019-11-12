@@ -1,0 +1,79 @@
+{% extends 'base/base.html' %}
+<!-- Titulo de la pagina -->
+{%block title%} Lista Productos {%endblock%}
+
+
+<!-- Contenido -->
+{%block titulo_seccion%} Lista Productos {%endblock%}
+
+{%block contenido%}
+
+
+<table class="table">
+  <thead class="thead-entel">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre Producto</th>
+      <th scope="col">Precio</th>
+      <th scope="col">Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%if object_list %}
+    {% for producto in productos %}
+    <tr>
+      <th scope="row">{{producto.id}}</th>
+      <td>{{producto.nombre_producto}}</td>
+      <td>{{producto.precio}}</td>
+      <td>
+        <a class="btn btn-primary" href="{% url 'modificar producto' producto.id %}"><i class="fas fa-edit"></i></a>
+        
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal{{producto.id}}">
+            <i class="fas fa-trash"></i>
+        </button>
+
+        <div class="modal fade" id="myModal{{producto.id}}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h4 class="modal-title">Eliminar: {{producto.nombre_producto}}</h4>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+          
+                <!-- Modal body -->
+                <div class="modal-body">
+                  Estas seguro que deseas eliminar el producto: {{producto.nombre_producto}}
+                </div>
+          
+                <!-- Modal footer  -->
+                <div class="modal-footer">
+                  <form action="{% url 'eliminar producto' producto.id %}"  method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-primary" >Eliminar</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                  </form>
+                  
+                </div>
+         
+              </div>
+            </div>
+          </div>
+          
+      </td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <h1>No existen registros</h1>
+    {% endif %}
+  </tbody>
+</table>
+
+{%endblock%}
+
+{%block scripts%}
+
+
+
+{%endblock%}

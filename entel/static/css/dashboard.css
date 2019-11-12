@@ -58,6 +58,15 @@
 .bg-sidebard{
   background: #005cff !important;
   color: white;
+ 
+}
+.bg-sidebard .categoria{
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 18px;
+  background: #2574ff;
+  border-bottom: 1px solid black;
 }
 
 .list-group-flush .list-group-item{
@@ -80,6 +89,7 @@
 .secciontitulo {
   color: #005cff;
   font-size: 30px ;
+  text-align: center;
   
 }
 .secciontitulo h1{

@@ -39,3 +39,10 @@ class ModificarUsuario(forms.ModelForm):
     def clean_password(self):
         return self.initial['password']
 
+
+class ProductoForm(forms.ModelForm):
+    class Meta:
+        model = modelo.Producto
+        fields = ('nombre_producto','precio',)
+
+

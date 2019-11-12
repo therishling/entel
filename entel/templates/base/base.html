@@ -67,6 +67,7 @@
 
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'modificar perfil' user.id %}">Perfil</a>
                 <a class="dropdown-item" href="{% url 'logout' %}">Salir</a>
               </div>
             </li>
@@ -75,7 +76,7 @@
       </nav>
 
       <div class="container-fluid">
-        <div class="col-md-3 mx-auto secciontitulo">
+        <div class="col-md-12 secciontitulo">
           <h1 class="">{%block titulo_seccion%} Titulo Seccion {%endblock%}</h1>
 
         </div>

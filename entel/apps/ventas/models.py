@@ -79,11 +79,10 @@ class Venta(models.Model):
 
 class Producto(models.Model):
     nombre_producto = models.CharField(max_length=100)
-    stock = models.IntegerField()
     precio = models.IntegerField()
 
 class ProductoVenta(models.Model):
     venta = models.ForeignKey(Venta, null=True, blank=True, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, null=True, blank=True, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
-    total = models.IntegerField()
+    total = models.IntegerField(default=0)
