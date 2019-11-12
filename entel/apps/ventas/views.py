@@ -22,7 +22,7 @@ class CrearUsuario(UserPassesTestMixin, SuccessMessageMixin, CreateView):
 
     model = modelos.Vendedor
     form_class = formularios.CrearUsuario
-    template_name = 'dashboard/admin/formvendedor.html'
+    template_name = 'dashboard/admin/usuario/formvendedor.html'
     success_message = 'Usuario registrado correctamente'
     success_url = reverse_lazy('crear usuario')
     
