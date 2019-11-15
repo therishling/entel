@@ -16,3 +16,7 @@ def active(context, pattern_or_urlname):
     return ''
 
 
+@register.simple_tag
+def fecha():
+    return date.today()
+  

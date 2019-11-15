@@ -1,0 +1,128 @@
+{% extends 'base/base.html' %}
+
+<!-- Titulo de la pagina -->
+
+{%block title%}
+
+Vender Producto
+
+
+
+{%endblock%}
+
+
+
+
+<!-- Contenido -->
+{%block titulo_seccion%}
+Vender Producto
+{%endblock%}
+
+{%block contenido%}
+{% if messages %}
+
+{% for message in messages %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% if form.errors %}
+{% for field in form %}
+{% if field.errors %}
+{% for error in field.errors %}
+<div class="alert alert-danger" role="alert">
+    {{ error|escape }}
+</div>
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+<div class="col-md-6 mx-auto formsentel">
+    <form method="post">
+        {% csrf_token %}
+        {% load formulario %}
+        {% productos as producto %}
+        <div class="form-group">
+            <label for="vendedor">Vendedor</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                </div>
+                <select name="vendedor" readonly>
+                    <option value="{{user.id}}"> {{user}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="fecha">Fecha</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                </div>
+                <input type="text" class="form-control" name="fecha" placeholder="" required value="{% fecha %} " readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="producto">Producto</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                </div>
+                <select  name="producto" class="form-control " multiple="multiple" onchange="selectFunction(event)"  required>
+                    {% for item in producto %}
+                    <option data-typeid="{{item.precio}}" value="{{item.id}}">{{item}}</option>
+                    
+                    {% endfor %}
+                    
+                  </select>
+                  
+            </div>
+
+                  
+        </div>
+        <div class="form-group">
+                <label for="comentarios">Comentario</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                    </div>
+                    <textarea type="text" class="form-control" name="comentarios" placeholder="" required value="{% fecha %}" ></textarea>
+                </div>
+    
+                      
+            </div>
+            <div class="form-group">
+                    <label for="total">Total</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                        </div>
+                        <input type="number" id="total" class="form-control" name="total" placeholder="Total"  readonly required value=""  >
+                    </div>
+                </div>
+        
+        <button type="submit" class="btn btn-primary">
+            Vender
+        </button>
+    </form>
+</div>
+
+<script>
+function selectFunction(e) {
+  var type_id = $('select option:selected').map(function() {
+      return $(this).attr('data-typeid');
+    })
+    .get().map(parseFloat).reduce(function(a, b) {
+      return a + b
+    });
+  console.log(type_id)
+  $("#total").val( type_id );
+}
+</script>
+
+{%endblock%}

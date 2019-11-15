@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import ListView,CreateView,UpdateView,DeleteView
+from django.views.generic import ListView,CreateView,UpdateView,DeleteView, TemplateView
 from django.urls import reverse,reverse_lazy
 from apps.ventas import models as modelos
 from apps.ventas import forms as formularios
@@ -10,9 +10,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 
 # Create your views here.
-def index(request):
-    return render(request, 'dashboard/index.html')
-
+class Index(TemplateView):
+    template_name = 'dashboard/index.html'
 
 # Funcionalidades ADMIN
 
@@ -129,13 +128,13 @@ class EliminarProducto(UserPassesTestMixin, SuccessMessageMixin, DeleteView):
 
 # VISTA USUARIOS
 
-class ModificarPerfil(UserPassesTestMixin, UpdateView):
+class ModificarPerfil(UserPassesTestMixin,UpdateView):
     model = modelos.Vendedor
     form_class = formularios.ModificarUsuario
     template_name = 'dashboard/admin/usuario/formvendedor.html'
     success_url = reverse_lazy('listar usuario')
     context_object_name = 'usuario'
-
+ 
     def test_func(self):
         user = str(self.request.user.id)
         path = self.request.path
@@ -148,3 +147,24 @@ class ModificarPerfil(UserPassesTestMixin, UpdateView):
     def handle_no_permission(self):
         return redirect('dashboard')
 
+
+
+class CrearVenta(SuccessMessageMixin,UserPassesTestMixin,CreateView):
+    model = modelos.Venta
+    template_name = 'dashboard/vendedor/venta/formventas.html'
+    success_url =  reverse_lazy('crear venta')
+    form_class = formularios.VentaForms
+    success_message = 'venta creada'
+    context_object_name = 'venta'
+
+    def test_func(self):
+        user = self.request.user
+        return user.is_vendedor
+    
+    def handle_no_permission(self):
+        return redirect('dashboard')
+
+class ListarVenta(ListView, UserPassesTestMixin):
+    model = modelos.Venta
+    template_name = 'dashboard/vendedor/venta/lista.html'
+    context_object_name = 'ventas'

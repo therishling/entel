@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+
+
+<!-- Titulo de la pagina -->
+{%block title%} Lista Ventas {%endblock%}
+
+
+<!-- Contenido -->
+{%block titulo_seccion%} Lista Ventas {%endblock%}
+
+{%block contenido%}
+
+
+<table class="table">
+        
+  <thead class="thead-entel">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Vendedor</th>
+      <th scope="col">Producto</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Comentarios</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%if ventas %}
+    {% for venta in ventas %}
+    {%if venta.vendedor.id == user.id or user.admin%}
+    <tr>
+      <th scope="row">{{venta.id}}</th>
+      <td>{{venta.vendedor}}</td>
+      <td>{{venta.producto}}</td>
+      <td>{{venta.fecha}}</td>
+      <td>{{venta.comentarios}}</td>
+      <td>{{venta.total}}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+    {% else %}
+    <h1>No existen registros</h1>
+    {% endif %}
+  </tbody>
+</table>
+
+{%endblock%}

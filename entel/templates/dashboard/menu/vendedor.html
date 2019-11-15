@@ -1,0 +1,7 @@
+{%load menu%}
+<a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action {% active 'dashboard' %}"><i class="fas fa-home"></i><span> Inicio</span></a>
+<div class="categoria">
+    <span>Tienda</span>
+</div>
+<a href="{% url 'crear venta' %}" class="list-group-item list-group-item-action {% active 'crear venta' %}"><i class="fas fa-user-plus"></i><span> Vender Producto</span></a>
+<a href="{% url 'listar venta' %}" class="list-group-item list-group-item-action {% active 'listar venta' %}"><i class="fas fa-table"></i><span> Listar Ventas</span></a>

@@ -46,3 +46,11 @@ class ProductoForm(forms.ModelForm):
         fields = ('nombre_producto','precio',)
 
 
+
+class VentaForms(forms.ModelForm):
+    class Meta:
+        model = modelo.Venta
+        fields = ('vendedor','fecha','producto','comentarios','total')
+        widgets = {
+            'producto': forms.SelectMultiple(attrs={"class":"pene"}),          
+        }

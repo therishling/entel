@@ -71,18 +71,21 @@ class Vendedor(AbstractBaseUser):
     def __str__(self):
         return self.nombre + ' ' + self.apellido_paterno + ' ' + self.apellido_materno
     
-
-class Venta(models.Model):
-    vendedor = models.ForeignKey(Vendedor, null=True, blank=True, on_delete=models.CASCADE)
-    fecha = models.DateField()
-    comentarios = models.TextField()
-
 class Producto(models.Model):
     nombre_producto = models.CharField(max_length=100)
     precio = models.IntegerField()
 
+    def __str__(self):
+        return self.nombre_producto
+
+class Venta(models.Model):
+    vendedor = models.ForeignKey(Vendedor, null=True, blank=True, on_delete=models.CASCADE)
+    producto = models.ManyToManyField(Producto, blank=True, through='ProductoVenta')
+    fecha = models.DateField()
+    comentarios = models.TextField()
+    total = models.IntegerField(default=0)
+    
 class ProductoVenta(models.Model):
     venta = models.ForeignKey(Venta, null=True, blank=True, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, null=True, blank=True, on_delete=models.CASCADE)
-    cantidad = models.IntegerField()
-    total = models.IntegerField(default=0)
+    

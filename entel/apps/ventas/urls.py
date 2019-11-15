@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from apps.ventas import views as vista
 urlpatterns = [
     #INDEX
-    path('dashboard/', login_required(vista.index) ,name='dashboard'),
+    path('dashboard/', login_required(vista.Index.as_view()) ,name='dashboard'),
     # CRUD USUARIO
     path('dashboard/admin/crearusuario', login_required(vista.CrearUsuario.as_view()) ,name='crear usuario'),
     path('dashboard/admin/listarusuario', login_required(vista.ListarUsuarios.as_view()) ,name='listar usuario'),
@@ -17,4 +17,8 @@ urlpatterns = [
     path('dashboard/admin/listarproducto', login_required(vista.ListarProductos.as_view()) ,name='listar producto'),
     re_path(r'^dashboard/admin/modificarproducto/(?P<pk>\d+)/$', login_required(vista.ModificarProducto.as_view()) ,name='modificar producto'),
     re_path(r'^dashboard/admin/eliminarproducto/(?P<pk>\d+)/$', login_required(vista.EliminarProducto.as_view()) ,name='eliminar producto'),
+
+    #VENTAS
+    path('dashboard/vendedor/venta', login_required(vista.CrearVenta.as_view()) ,name='crear venta'),
+    path('dashboard/vendedor/listaventas', login_required(vista.ListarVenta.as_view()) ,name='listar venta'),
 ]
