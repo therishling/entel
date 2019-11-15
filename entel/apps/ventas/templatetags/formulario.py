@@ -14,4 +14,6 @@ def fecha():
 def productos():
     return modelos.Producto.objects.all()
 
+
+
     

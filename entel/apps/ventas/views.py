@@ -168,3 +168,8 @@ class ListarVenta(ListView, UserPassesTestMixin):
     model = modelos.Venta
     template_name = 'dashboard/vendedor/venta/lista.html'
     context_object_name = 'ventas'
+
+    def get_context_data(self, **kwargs):
+        context = super(ListarVenta, self).get_context_data(**kwargs)
+        context['productos'] = modelos.ProductoVenta.objects.all()
+        return context

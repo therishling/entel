@@ -51,7 +51,7 @@ Vender Producto
             <label for="vendedor">Vendedor</label>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
                 </div>
                 <select name="vendedor" readonly>
                     <option value="{{user.id}}"> {{user}}</option>
@@ -62,7 +62,7 @@ Vender Producto
             <label for="fecha">Fecha</label>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                 </div>
                 <input type="text" class="form-control" name="fecha" placeholder="" required value="{% fecha %} " readonly>
             </div>
@@ -71,7 +71,7 @@ Vender Producto
             <label for="producto">Producto</label>
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                    <span class="input-group-text"><i class="fas fa-plus"></i></span>
                 </div>
                 <select  name="producto" class="form-control " multiple="multiple" onchange="selectFunction(event)"  required>
                     {% for item in producto %}
@@ -89,7 +89,7 @@ Vender Producto
                 <label for="comentarios">Comentario</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                        <span class="input-group-text"><i class="fas fa-comment"></i></span>
                     </div>
                     <textarea type="text" class="form-control" name="comentarios" placeholder="" required value="{% fecha %}" ></textarea>
                 </div>
@@ -100,7 +100,7 @@ Vender Producto
                     <label for="total">Total</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-pencil-alt"></i></span>
+                            <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                         </div>
                         <input type="number" id="total" class="form-control" name="total" placeholder="Total"  readonly required value=""  >
                     </div>

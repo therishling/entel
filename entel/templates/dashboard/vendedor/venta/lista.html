@@ -10,37 +10,89 @@
 
 {%block contenido%}
 
-
 <table class="table">
-        
-  <thead class="thead-entel">
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Vendedor</th>
-      <th scope="col">Producto</th>
-      <th scope="col">Fecha</th>
-      <th scope="col">Comentarios</th>
-      <th scope="col">Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    {%if ventas %}
-    {% for venta in ventas %}
-    {%if venta.vendedor.id == user.id or user.admin%}
-    <tr>
-      <th scope="row">{{venta.id}}</th>
-      <td>{{venta.vendedor}}</td>
-      <td>{{venta.producto}}</td>
-      <td>{{venta.fecha}}</td>
-      <td>{{venta.comentarios}}</td>
-      <td>{{venta.total}}</td>
-    </tr>
-    {% endif %}
-    {% endfor %}
-    {% else %}
-    <h1>No existen registros</h1>
-    {% endif %}
-  </tbody>
-</table>
 
-{%endblock%}
+    <thead class="thead-entel">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Vendedor</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Comentarios</th>
+            <th scope="col">Total</th>
+            <th scope="col">Detalle</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%if ventas %}
+        {% for venta in ventas %}
+        {%if venta.vendedor.id == user.id or user.admin%}
+        <tr>
+            <th scope="row">{{venta.id}}</th>
+            <td>{{venta.vendedor}}</td>
+            <td>{{venta.fecha}}</td>
+            <td>{{venta.comentarios}}</td>
+            <td>{{venta.total}}</td>
+            <td>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal{{venta.id}}">
+                    <i class="fas fa-search"></i>
+                </button>
+
+                <div class="modal fade" id="myModal{{venta.id}}">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">Detalle Venta Numero: {{venta.id}}</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <table class="table">
+                                    <thead class="thead-entel">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Producto</th>
+                                            <th scope="col">Precio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {%if productos %}
+                                        {% for producto in productos %}
+                                        {%if venta.id == producto.venta.id %}
+                                        <tr>
+                                            <th scope="row">{{producto.id}}</th>
+                                            <td>{{producto.producto}}</td>
+                                            <td>{{producto.producto.precio}}</td>
+                                        </tr>
+                                        {%endif%}
+                                        {% endfor %}
+                                       {%endif%}
+                                            </tbody>
+                                          </table>
+                            </div>
+
+                            <!-- Modal footer  -->
+                            <div class="modal-footer">
+                               
+                                    
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        {% endif %}
+                                        {% endfor %}
+                                        {% else %}
+                                        <h1>No existen registros</h1>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+
+                                {%endblock%}
