@@ -1,6 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import ReadOnlyPasswordHashField, UserChangeForm
 from apps.ventas import models as modelo
+
 
 
     
@@ -29,15 +30,27 @@ class CrearUsuario(forms.ModelForm):
         return usuario
 
 class ModificarUsuario(forms.ModelForm):
-    password = ReadOnlyPasswordHashField()
-
+    
     class Meta:
         model = modelo.Vendedor
-        fields = ('nombre','apellido_paterno','apellido_materno','fecha_nacimiento','correo','password',)
-        
+        fields = ('nombre','apellido_paterno','apellido_materno','fecha_nacimiento','correo',)
     
     def clean_password(self):
         return self.initial['password']
+
+class ModificarPassword(forms.ModelForm):
+    class Meta:
+        model = modelo.Vendedor
+        fields = ('password',)
+
+    def save(self, commit=True):
+        usuario = super(ModificarPassword, self).save(commit=False)
+        usuario.set_password(self.cleaned_data["password"])
+        
+        if commit:
+            
+            usuario.save()
+        return usuario
 
 
 class ProductoForm(forms.ModelForm):

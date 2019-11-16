@@ -12,6 +12,7 @@ urlpatterns = [
     re_path(r'^dashboard/admin/eliminarusuario/(?P<pk>\d+)/$', login_required(vista.EliminarUsuario.as_view()) ,name='eliminar usuario'),
     # ACTUALIZAR PERFIL
     re_path(r'^dashboard/modificarperfil/(?P<pk>\d+)/$', login_required(vista.ModificarPerfil.as_view()) ,name='modificar perfil'),
+    re_path(r'^dashboard/modificarpassword/(?P<pk>\d+)/$', login_required(vista.ModificarPassword.as_view()) ,name='modificar password'),
     # CRUD PRODUCTO
     path('dashboard/admin/crearproducto', login_required(vista.CrearProducto.as_view()) ,name='crear producto'),
     path('dashboard/admin/listarproducto', login_required(vista.ListarProductos.as_view()) ,name='listar producto'),

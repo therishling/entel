@@ -128,17 +128,36 @@ class EliminarProducto(UserPassesTestMixin, SuccessMessageMixin, DeleteView):
 
 # VISTA USUARIOS
 
-class ModificarPerfil(UserPassesTestMixin,UpdateView):
+class ModificarPerfil(UserPassesTestMixin,SuccessMessageMixin,UpdateView):
     model = modelos.Vendedor
     form_class = formularios.ModificarUsuario
     template_name = 'dashboard/admin/usuario/formvendedor.html'
-    success_url = reverse_lazy('listar usuario')
+    success_url = reverse_lazy('dashboard')
     context_object_name = 'usuario'
- 
+    success_message = 'Perfil Actualizado'
     def test_func(self):
         user = str(self.request.user.id)
         path = self.request.path
         path = path.replace("/dashboard/modificarperfil/","")
+        path = path.replace("/","")
+        if user == path:
+            return True
+        return False
+    
+    def handle_no_permission(self):
+        return redirect('dashboard')
+
+class ModificarPassword(UserPassesTestMixin,SuccessMessageMixin,UpdateView):
+    model = modelos.Vendedor
+    form_class = formularios.ModificarPassword
+    template_name = 'dashboard/admin/usuario/formpassword.html'
+    success_url = reverse_lazy('dashboard')
+    context_object_name = 'usuario'
+    success_message = 'Password Actualizado'
+    def test_func(self):
+        user = str(self.request.user.id)
+        path = self.request.path
+        path = path.replace("/dashboard/modificarpassword/","")
         path = path.replace("/","")
         if user == path:
             return True
